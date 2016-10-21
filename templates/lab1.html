@@ -1,0 +1,81 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab1</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <form action="{% url "lab1" %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="a_coefs">Коефіцієнти а</label>
+                <input type="text" class="form-control" name="a_coefs" id="a_coefs">
+            </div>
+            <div class="form-group">
+                <label for="rand_range">Межа генератора випадкових чисел</label>
+                <input type="number" class="form-control" name="rand_range" id="rand_range">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <div class="row">
+        <h2 class="text">A: {{ table.A }}</h2>
+        <h2 class="text">Межа генератора випадкових чисел: {{ table.rand_range }}</h2>
+        <h2 class="text">Yet: {{ table.Yet }}</h2>
+        <h2 class="text">Критерій: (Y - Yet)^2</h2>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>№</td>
+                <td>X1</td>
+                <td>X2</td>
+                <td>X3</td>
+                <td>Y</td>
+                <td>(Y - Yet)^2</td>
+                <td>Xn1</td>
+                <td>Xn2</td>
+                <td>Xn3</td>
+            </tr>
+            {% for row in table.rows %}
+                <tr {% if row.preferred %}class="success"{% endif %}>
+                    <td>{{ forloop.counter }}</td>
+                    {% for x in row.X %}
+                        <td>{{ x }}</td>
+                    {% endfor %}
+                    <td>{{ row.Y }}</td>
+                    <td>{{ row.value }}</td>
+                    {% for xn in row.xn %}
+                        <td>{{ xn }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>x0</td>
+                {% for x0 in table.X0 %}
+                    <td>{{ x0 }}</td>
+                {% endfor %}
+                <td>{{ table.Yet }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>dx</td>
+                {% for dx in table.dx %}
+                    <td>{{ dx }}</td>
+                {% endfor %}
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
