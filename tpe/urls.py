@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^static/(?P<path>.*)$', static_views.serve),
     url(r'^$', TemplateView.as_view(template_name="index.html"), name="index"),
     url(r'^lab1/', views.lab1, name="lab1"),
-    url(r'^lab2/', views.lab2, name="lab2")
+    url(r'^lab2/', views.lab2, name="lab2"),
+    url(r'^lab3/', views.lab3, name="lab3")
 ]

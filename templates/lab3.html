@@ -1,0 +1,185 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TPE labs</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text">Lab3</h1>
+        <p class="text">X1min {{ X1min }}</p>
+        <p class="text">X1max {{ X1max }}</p>
+        <p class="text">X2min {{ X2min }}</p>
+        <p class="text">X2max {{ X2max }}</p>
+        <p class="text">X3min {{ X3min }}</p>
+        <p class="text">X3max {{ X3max }}</p>
+        <p class="text">X3min {{ Ymin }}</p>
+        <p class="text">X3max {{ Ymax }}</p>
+    <div class="row">
+        <table class="table table-stripped">
+            <tr>
+                <td>x1</td>
+                <td>x2</td>
+                <td>x3</td>
+                <td>Y1</td>
+                <td>Y2</td>
+                <td>Y3</td>
+            </tr>
+            <tr>
+                <td>{{ X1min }}</td>
+                <td>{{ X2min }}</td>
+                <td>{{ X3min }}</td>
+                {% for foo in Y1 %}
+                    <td>{{ foo }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>{{ X1min }}</td>
+                <td>{{ X2max }}</td>
+                <td>{{ X3max }}</td>
+                {% for foo in Y2 %}
+                    <td>{{ foo }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>{{ X1max }}</td>
+                <td>{{ X2min }}</td>
+                <td>{{ X3max }}</td>
+                {% for foo in Y3 %}
+                    <td>{{ foo }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>{{ X1max }}</td>
+                <td>{{ X2max }}</td>
+                <td>{{ X3min }}</td>
+                {% for foo in Y4 %}
+                    <td>{{ foo }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+        {% for y in Yavg %}
+            <p class="text">Y{{ forloop.counter }}avg = {{ y }}</p>
+        {% endfor %}
+    <p class="text">mx1 = {{ mx1 }}</p>
+    <p class="text">mx2 = {{ mx2 }}</p>
+    <p class="text">mx3 = {{ mx3 }}</p>
+    <p class="text">a1 = {{ a1 }}</p>
+    <p class="text">a2 = {{ a2 }}</p>
+    <p class="text">a3 = {{ a3 }}</p>
+    <p class="text">a11 = {{ a11 }}</p>
+    <p class="text">a22 = {{ a22 }}</p>
+    <p class="text">a33 = {{ a33 }}</p>
+    <p class="text">a12 = {{ a12 }}</p>
+    <p class="text">a12 = a21 </p>
+    <p class="text">a23 = {{ a23 }}</p>
+    <p class="text">a23 = a32</p>
+    <p class="text">a13 = {{ a13 }}</p>
+    <p class="text">a31 = a13</p>
+    {% for foo in b %}
+        <p class="text">b{{ forloop.counter0 }} = {{ foo }}</p>
+    {% endfor %}
+    <p class="text">y = {{ b0 }} + {{ b1 }} * x1 + {{ b2 }} * x2 + {{ b3 }} * x3</p>
+    <p class="text">Перевірка:</p>
+    <p class="text">{{ b0 }} + {{ b1 }} * {{ X1min }} + {{ b2 }} * {{ X2min }} + {{ b3 }} * {{ X3min }} = {{ test1 }} = {{ mY1 }}</p>
+    <p class="text">{{ b0 }} + {{ b1 }} * {{ X1min }} + {{ b2 }} * {{ X2max }} + {{ b3 }} * {{ X3max }} = {{ test2 }} = {{ mY2 }}</p>
+    <p class="text">{{ b0 }} + {{ b1 }} * {{ X1max }} + {{ b2 }} * {{ X2min }} + {{ b3 }} * {{ X3max }} = {{ test3 }} = {{ mY3 }}</p>
+    <p class="text">{{ b0 }} + {{ b1 }} * {{ X1max }} + {{ b2 }} * {{ X2max }} + {{ b3 }} * {{ X3min }} = {{ test4 }} = {{ mY4 }}</p>
+    <br>
+    <p class="text">Нормована матриця</p>
+    <div class="row">
+        <table class="table" table-stripped>
+            <tr>
+                <td>x0</td>
+                <td>x1</td>
+                <td>x2</td>
+                <td>x3</td>
+                <td>Y1</td>
+                <td>Y2</td>
+                <td>Y3</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>-1</td>
+                <td>-1</td>
+                <td>-1</td>
+                {% for foo in y1 %}
+                    <td>{{ foo }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>-1</td>
+                <td>1</td>
+                <td>1</td>
+                {% for foo in y2 %}
+                    <td>{{ foo }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>-1</td>
+                <td>1</td>
+                {% for foo in y3 %}
+                    <td>{{ foo }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>-1</td>
+                {% for foo in y4 %}
+                    <td>{{ foo }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    <p class="text">Перевірка однорідності дисперсії за критерієм Кохрена:</p>
+    <p class="text">Дисперсія по рядках:</p>
+    <p class="text">S^2(y1) = {{ dy1 }}</p>
+    <p class="text">S^2(y2) = {{ dy2 }}</p>
+    <p class="text">S^2(y3) = {{ dy3 }}</p>
+    <p class="text">S^2(y4) = {{ dy4 }}</p>
+    <p class="text">Gp = {{ Gp }}</p>
+    <p class="text">f1 = m - 1 = 2; f2 = N = 4</p>
+    <p class="text">Рівень значимості приймемо 0.05.</p>
+    <p class="text">За таблицею в 4 рядку 2 стовпчику: Gт=0.7679,</p>
+    <p class="text">Gp = {{ Gp }} < Gт</p>
+    <p class="text">Дисперсія однорідна.</p>
+    <br>
+    <p class="text">Далі оцінимо значимість коефіцієнтів регресії згідно критерію Стьюдента</p>
+    <p class="text">Sb^2 = {{ Sb }}</p>
+    <p class="text">S^2{Bs} = {{ S2bs }}</p>
+    <p class="text">S{Bs} = {{ Sbs }}</p>
+    {% for b in B %}
+        <p class="text">B{{ forloop.counter0 }} = {{ b }}</p>
+    {% endfor %}
+    {% for foo in t %}
+        <p class="text">t{{ forloop.counter0 }} = {{ foo }}</p>
+    {% endfor %}
+    <p class="text">f3 = f1 * f2 = (m - 1) * N = 2 * 4= 8</p>
+    <p class="text">Отже, з таблиці слід вибрати значення з восьмого рядка: tтабл=2.306.
+    Але бачимо, що t0,t3>tтабл. t1,t2< tтабл. Отже, b1, b2 коефіцієнти рівняння регресії приймаємо
+    незначними при рівні значимості 0.05, тобто вони виключаються з рівняння.</p>
+    <p class="text">y = {{ b0 }} + {{ b3 }} * x3</p>
+    <p class="text">y^ 1 = {{ b0 }} + {{ b3 }} * {{ X3min }} = {{ yr1 }}</p>
+    <p class="text">y^ 2 = {{ b0 }} + {{ b3 }} * {{ X3max }} = {{ yr2 }}</p>
+    <p class="text">y^ 3 = {{ b0 }} + {{ b3 }} * {{ X3max }} = {{ yr3 }}</p>
+    <p class="text">y^ 3 = {{ b0 }} + {{ b3 }} * {{ X3min }} = {{ yr4 }}</p>
+        <hr>
+    <p class="text">Критерій Фішера</p>
+    <p class="text">d - кількість значимих коефіцієнтів d = 2</p>
+    <p class="text">f4 = N – d=2 і f3 = f1 * f2 = (m -1 ) * N = 2 * 4 = 8</p>
+    <p class="text">S^2 ad = {{ S2ad }}</p>
+    <p class="text">Fp = {{ Fp }}</p>
+    <p class="text">f4 = N – d = 2 і f3 = f1 * f2 = (m - 1) * N = 2 * 4 = 8</p>
+    <p class="text">Fт вибираємо з таблиці 8 рядок 2 стовпець: Fт = 4.5.</p>
+    <p class="text">Fp = {{ Fp }} > Fт = 4.5. Отже, рівняння регресії неадекватно оригіналу при рівні значимості 0.05</p>
+    </div>
+</body>
+</html>
